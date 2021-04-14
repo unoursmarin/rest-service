@@ -48,28 +48,16 @@ public class UserService {
         Instant instant = birthdate.toInstant();
 
         Period diff = Period.between(instant.atZone(defaultZoneId).toLocalDate(), now);
-        if(diff.getYears()>18){
-            return true;
-        }else{
-            return false;
-        }
+		return diff.getYears() > 18;
     }
-
+//Checks country
     private  boolean countryValider(String country){
-        if(country.toLowerCase().equals("france")){
-            return true;
-        }else{
-            return false;
-        }
+		return country.equalsIgnoreCase("france");
     }
     
     //Method to call to validate before save so the api doesn't get corrupted
     public void valider(User user) {
-    	if(countryValider(user.getCountry()) && dateValider(user.getBirthday())) {
-    		user.setValid(true);
-    	}else {
-    		user.setValid(false);
-    	}
+		user.setValid(countryValider(user.getCountry()) && dateValider(user.getBirthday()));
     }
 
 }
