@@ -14,22 +14,21 @@ import com.sun.istack.NotNull;
 @Entity
 public class User {
 
-    public @Id @GeneratedValue Integer id;
+    private @Id @GeneratedValue Integer id;
+    private @NotEmpty String firstname;
+    private String lastname;
+    private String email;
+    private @NotEmpty Date birthday;
+    private String country = "";
+    private String town;
+    private String code_postal;
+    private int nombre_achat;
+    private  Boolean subscriber=false;
+    private Boolean isValid =false;
+    private String description;
 
-    public @NotEmpty String firstname;
-    public String lastname;
-    public String email;
-    public @NotEmpty Date birthday;
-    public String country = "";
-    public String town;
-    public String code_postal;
-    public int nombre_achat;
-    public  Boolean subscriber=false;
-    public Boolean isValid =false;
-    public String description;
 
-
-    User(){}
+    public User(){}
 
     
     public User(Integer id, String firstname, String lastname, String email, Date birthday, String country, String town,
@@ -73,8 +72,7 @@ public class User {
     }
 
     public void setDescription(String description) {
-        description = description;
-    }
+	this.description=description;}
 
 
     public void setId(Integer id) {
@@ -233,10 +231,8 @@ public class User {
 				return false;
 		} else if (!subscriber.equals(other.subscriber))
 			return false;
-		if (town == null) {
-			if (other.town != null)
-				return false;
-		} else if (!town.equals(other.town))
+		if (town != null) return town.equals(other.town);
+		else if (other.town != null)
 			return false;
 		return true;
 	}

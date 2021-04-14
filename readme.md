@@ -31,6 +31,8 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+finally, you can add an user in order to test the api
+INSERT INTO `afdb`.`user` (`id`, `firstname`, `lastname`, `email`, `birthday`, `country`, `town`, `code_postal`, `nombre_achat`, `description`, `subscriber`, `valid`) VALUES ('6', 'Raphaël', 'Chouchane', 'raphaelchouchane@mail.com', '1993-09-13', 'france', 'st raphaël', '83700', '0', 'Dev très sympa', '1', '1');
 
 
 
@@ -43,3 +45,5 @@ users in url:
 
 127.0.0.1/users
 127.0.0.1/users/[id] to get user by id
+POST: /users
+Delete: /users/[id]

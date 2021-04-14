@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javassist.NotFoundException;
+
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    //Get ALl users
+    //Get all users
     @GetMapping("/users")
     public List<User> list(){
 	return service.listAll();
@@ -35,9 +37,9 @@ public class UserController {
     public ResponseEntity<User> get(@PathVariable Integer id) {
     	try {
     		User user= service.get(id);
-    		return new ResponseEntity<User>(user, HttpStatus.OK);
+    		return new ResponseEntity<>(user, HttpStatus.OK);
     	}catch (NoSuchElementException e) {
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
     	
     }
@@ -59,6 +61,17 @@ public class UserController {
     	}catch(NoSuchElementException e) {
     		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     	}
+    }
+    // delete user
+    @PostMapping("/users/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+    	try {
+    		service.delete(id);
+    		return new ResponseEntity<>(HttpStatus.OK);
+    	}catch (NoSuchElementException e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+    
     }
     
     }
